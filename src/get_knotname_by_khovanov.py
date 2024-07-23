@@ -3,7 +3,7 @@
 import os
 DIRNOW = os.path.dirname(os.path.abspath(__file__))
 SUBDIR = os.path.join(DIRNOW, "slow_dict_reader", "src") # 子包路径
-KHODMP = os.path.join(DIRNOW, "khovanov-homology-list", "data", "sorted_khovanov3-11.txt")
+KHODMP = os.path.join(DIRNOW, "khovanov-homology-list", "data", "sorted_khovanov.txt")
 assert os.path.isfile(KHODMP) # 验证数据文件存在性
 
 # ======================================== BEGIN IMPORT FROM PATH ======================================== #
