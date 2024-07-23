@@ -1,0 +1,9 @@
+[submodule "src/khovanov-solver"]
+	path = src/khovanov-solver
+	url = https://github.com/TopologicalKnotIndexer/khovanov-solver
+[submodule "src/khovanov-homology-list"]
+	path = src/khovanov-homology-list
+	url = https://github.com/TopologicalKnotIndexer/khovanov-homology-list
+[submodule "src/slow_dict_reader"]
+	path = src/slow_dict_reader
+	url = https://github.com/TopologicalKnotIndexer/slow_dict_reader
