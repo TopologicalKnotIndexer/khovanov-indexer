@@ -1,13 +1,46 @@
-# 从标准输入流输入一个 PD_CODE
-# 输出可能与之对应的扭结的名称序列（每行一个），找不到相应的扭结则什么都不输出
+"""Command-line interface for khovanov-indexer."""
 
+from ast import literal_eval
+import argparse
+import subprocess
 import sys
+
 from khovanov_indexer import khovanov_indexer
 
-def main():
-    pd_code = eval(sys.stdin.read())
-    for knotname in khovanov_indexer(pd_code):
-        print(knotname)
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        description="Identify catalogued knots by integral Khovanov homology."
+    )
+    parser.add_argument("--java", help="path or command name for Java")
+    parser.add_argument("--timeout", type=float, help="maximum JavaKh runtime in seconds")
+    parser.add_argument("--max-heap", default="16g", help="Java heap limit, for example 4g")
+    args = parser.parse_args(argv)
+    raw = sys.stdin.buffer.read().decode("utf-8-sig").strip()
+    if not raw:
+        parser.exit(2, "error: expected a PD-code literal on standard input\n")
+    try:
+        pd_code = literal_eval(raw)
+        if not isinstance(pd_code, list):
+            raise TypeError("a PD code must be a list")
+        for name in khovanov_indexer(
+            pd_code,
+            java_path=args.java,
+            timeout=args.timeout,
+            max_heap=args.max_heap,
+        ):
+            print(name)
+    except (
+        FileNotFoundError,
+        subprocess.TimeoutExpired,
+        SyntaxError,
+        TypeError,
+        ValueError,
+        RuntimeError,
+    ) as exc:
+        parser.exit(2, f"error: {exc}\n")
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
