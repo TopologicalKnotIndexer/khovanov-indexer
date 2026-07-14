@@ -71,3 +71,16 @@ python -m unittest discover -s tests -v
 
 Tests include an end-to-end trefoil computation when Java is available. No
 PyPI publication is performed as part of repository maintenance.
+
+## Citation
+
+If you use this repository in academic work, please cite it as:
+
+```bibtex
+@software{topologicalknotindexer_khovanov_indexer,
+  author = {{TopologicalKnotIndexer contributors}},
+  title = {{khovanov-indexer}},
+  year = {2026},
+  url = {https://github.com/TopologicalKnotIndexer/khovanov-indexer}
+}
+```
